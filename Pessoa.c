@@ -1,5 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <locale.h>
+#include <stdbool.h>
+
+typedef struct {
+    int numeroConta;
+    int codigoBanco;
+    float saldo;
+    char *nomeConta;
+    char *cpfConta;
+}Conta;
 
 typedef struct {
     char nome[50];
@@ -7,6 +17,7 @@ typedef struct {
     float peso;
     float altura;
     char cpf[14];
+    Conta conta;
 }Pessoa;
 
 
@@ -54,6 +65,21 @@ void Output(){
     printf("CPF: ");
     printf("%s\n", pessoa.cpf);
     printf("\n");
+
+    if (pessoa.conta.cpfConta != NULL)
+    {
+        printf("Conta numero: ");
+        printf("%i\n", pessoa.conta.numeroConta);
+        printf("Conta codigo: ");
+        printf("%i\n", pessoa.conta.codigoBanco);
+        printf("Conta saldo: ");
+        printf("R$ %.2f\n", pessoa.conta.saldo);
+        printf("Conta nome: ");
+        printf("%s\n", pessoa.conta.nomeConta);
+        printf("Conta CPF: ");
+        printf("%s\n", pessoa.conta.cpfConta);
+    }
+    
    
     system("pause");
 
@@ -81,6 +107,32 @@ void Edit() {
 
 }
 
+void AddCount() {
+
+     if (pessoa.idade != false)
+    {
+        printf("Adicionar Conta\n");
+        printf("\n");
+        
+        printf("Numero da conta: ");
+        scanf("%i", &pessoa.conta.numeroConta);
+
+        printf("Codigo do banco: ");
+        scanf("%i", &pessoa.conta.codigoBanco);
+
+        pessoa.conta.saldo = rand()%100000;
+
+        pessoa.conta.nomeConta = pessoa.nome;
+        pessoa.conta.cpfConta = pessoa.cpf;
+
+        system("cls");
+
+    }else{
+        printf("Crie seu cadastro primeiro\n");
+        printf("\n");
+    };
+};
+
 void Home(){
 
     int num;
@@ -91,7 +143,8 @@ void Home(){
         printf("1-Criar cadastro\n");
         printf("2-Imprimir cadastro\n");
         printf("3-Editar cadastro\n");
-        printf("4-Encerrar a Sessão\n");
+        printf("4-Adicionar conta\n");
+        printf("5-Encerrar a Sessão\n");
         printf("\n");
         
         printf("Digite o valor: \n");
@@ -114,12 +167,17 @@ void Home(){
                 system("cls");
                 break;
             case 4:
+                AddCount();
+                break;
+            case 5:
                 printf("Sessão encerrada");
         }
-    }while (num !=4);
+    }while (num !=5);
     
 }
 
 void main() {
+    //setlocale(LC_ALL, "");
+    //setlocale (LC_CTYPE, "pt_BR.UTF-8");
     Home();
 };
